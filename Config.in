@@ -532,6 +532,11 @@ config BR2_OPTIMIZE_FAST
 	  Fortran-specific -fstack-arrays, unless -fmax-stack-var-size
 	  is specified, and -fno-protect-parens.
 
+config BR2_LINUX_KERNEL_CUSTOM_LOCAL
+	bool "Local directory"
+	help
+	  This option allows Buildroot to get the Linux kernel source
+	  code from a local directory.
 endchoice
 
 config BR2_GOOGLE_BREAKPAD_ENABLE
@@ -608,6 +613,11 @@ config BR2_SHARED_STATIC_LIBS
 	  take more time and more disk space, having static libraries
 	  may be useful to link some of the applications statically.
 
+config BR2_LINUX_KERNEL_CUSTOM_LOCAL
+	bool "Local directory"
+	help
+	  This option allows Buildroot to get the Linux kernel source
+	  code from a local directory.
 endchoice
 
 config BR2_PACKAGE_OVERRIDE_FILE
