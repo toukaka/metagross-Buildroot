@@ -1229,6 +1229,17 @@ check-package:
 	find $(TOPDIR) -type f \( -name '*.mk' -o -name '*.hash' -o -name 'Config.*' \) \
 		-exec ./utils/check-package {} +
 
+metagross_flash:
+	@echo "Flashing Board .."
+	# mount BOOTFS
+	sshpass -p 'toor' ssh -o StrictHostKeyChecking=no root@192.168.0.2 "mount -af /dev/mmcblk1p1 /root/BOOT"
+	# Copy files to BOOTFS
+	sshpass -p 'toor' scp -o StrictHostKeyChecking=no output/images/am335x-boneblack-wireless.dtb root@192.168.0.2:/root/BOOT
+	sshpass -p 'toor' scp -o StrictHostKeyChecking=no output/images/zImage root@192.168.0.2:/root/BOOT
+	sshpass -p 'toor' ssh -o StrictHostKeyChecking=no root@192.168.0.2 "sync"
+	sleep 2
+	sshpass -p 'toor' ssh -o StrictHostKeyChecking=no root@192.168.0.2 "reboot"
+
 include docs/manual/manual.mk
 -include $(foreach dir,$(BR2_EXTERNAL_DIRS),$(sort $(wildcard $(dir)/docs/*/*.mk)))
 
